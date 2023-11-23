@@ -61,8 +61,8 @@ While implementing your solution **please take care of the following requirement
 #### Non-functional requirements
 
 - The project must be buildable and runnable;
-- Unit tests are MANDATORY;
-- Your project must have a README file with build/run/test instructions (use a DB that can be run locally, e.g. in-memory, via container);
+- The project must have Unit tests;
+- The project must have a README file with build/run/test instructions (use a DB that can be run locally, e.g. in-memory, via container);
 - Any data required by the application to run (e.g. reference tables, dummy data) must be preloaded in the database;
 - Input/output data must be in JSON format;
 - Use a framework of your choice, but popular, up-to-date, and long-term support versions are recommended.
