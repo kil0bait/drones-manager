@@ -51,20 +51,20 @@ While implementing your solution **please take care of the following requirement
 
 #### Functional requirements
 
-- There is no need for UI;
 - Prevent the drone from being loaded with more weight that it can carry;
 - Prevent the drone from being in LOADING state if the battery level is **below 25%**;
-- Introduce a periodic task to check drones battery levels and create history/audit event log for this.
+- Introduce a periodic task to check drones battery levels and create history/audit event log for this;
+- There is no need for UI.
 
 ---
 
 #### Non-functional requirements
 
-- Input/output data must be in JSON format;
-- Your project must be buildable and runnable;
-- Your project must have a README file with build/run/test instructions (use DB that can be run locally, e.g. in-memory, via container);
+- The project must be buildable and runnable;
+- Unit tests are MANDATORY;
+- Your project must have a README file with build/run/test instructions (use a DB that can be run locally, e.g. in-memory, via container);
 - Any data required by the application to run (e.g. reference tables, dummy data) must be preloaded in the database;
-- Unit tests;
+- Input/output data must be in JSON format;
 - Use a framework of your choice, but popular, up-to-date, and long-term support versions are recommended.
 
 ---
