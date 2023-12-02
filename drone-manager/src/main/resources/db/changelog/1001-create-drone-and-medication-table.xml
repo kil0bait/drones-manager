@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1001" author="batyrk">
+        <createTable tableName="drone"
+                     remarks="Table with drone instances">
+            <column name="id" type="int" autoIncrement="true" startWith="100">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="serial_number" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="drone_model_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight_limit" type="float"/>
+            <column name="battery_capacity" type="float"/>
+            <column name="state" type="varchar(255)"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+
+        <createTable tableName="drone_model"
+                     remarks="Table with drone models">
+            <column name="id" type="int" autoIncrement="true" startWith="10">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="default_weight_limit" type="float"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+
+        <createTable tableName="medication"
+                     remarks="Table with medication instances">
+            <column name="id" type="int" autoIncrement="true" startWith="1000">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="weight" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_id" type="varchar(255)"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="drone" baseColumnNames="drone_model_id"
+                                 constraintName="drone_model_fk"
+                                 referencedTableName="drone_model" referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

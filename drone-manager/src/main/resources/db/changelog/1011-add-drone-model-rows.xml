@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1011" author="batyrk">
+        <insert tableName="drone_model">
+            <column name="name">Lightweight</column>
+            <column name="default_weight_limit">50.0</column>
+        </insert>
+        <insert tableName="drone_model">
+            <column name="name">Middleweight</column>
+            <column name="default_weight_limit">100.0</column>
+        </insert>
+        <insert tableName="drone_model">
+            <column name="name">Cruiserweight</column>
+            <column name="default_weight_limit">300.0</column>
+        </insert>
+        <insert tableName="drone_model">
+            <column name="name">Heavyweight</column>
+            <column name="default_weight_limit">500.0</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

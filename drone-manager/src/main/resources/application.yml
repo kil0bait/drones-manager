@@ -5,6 +5,8 @@ spring:
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: none
     database: postgresql
 management.endpoints.web.base-path: /rest/v1/
+springdoc.api-docs.path: /rest/v1/api-docs
+springdoc.swagger-ui.path: /swagger-ui.html
