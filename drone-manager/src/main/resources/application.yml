@@ -7,6 +7,11 @@ spring:
   jpa:
     hibernate.ddl-auto: none
     database: postgresql
+server:
+  error:
+    includeMessage: ALWAYS
+    includeStacktrace: NEVER
+    includeBindingErrors: NEVER
 management.endpoints.web.base-path: /rest/v1/
 springdoc.api-docs.path: /rest/v1/api-docs
 springdoc.swagger-ui.path: /swagger-ui.html

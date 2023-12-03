@@ -1,6 +1,6 @@
 package com.musala.artemis.dronemanager.rest.annotation;
 
-import com.musala.artemis.dronemanager.rest.model.ErrorResponse;
+import com.musala.artemis.dronemanager.rest.model.RestErrorResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,8 +16,8 @@ import java.lang.annotation.Target;
 @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Success. No content"),
         @ApiResponse(responseCode = "404", description = "Not found",
-                content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                content = @Content(schema = @Schema(implementation = RestErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Internal server error",
-                content = @Content(schema = @Schema(implementation = ErrorResponse.class)))})
+                content = @Content(schema = @Schema(implementation = RestErrorResponse.class)))})
 public @interface DeleteApiResponses {
 }

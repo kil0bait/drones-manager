@@ -13,15 +13,16 @@ import lombok.Setter;
 public class CreateDroneRequest {
     @NotBlank
     @Size(max = 100)
-    @Schema(description = "Serial number")
+    @Schema(description = "Serial number. Is unique for each drone")
     private String serialNumber;
     @NotBlank
     @Schema(description = "Drone model name")
     private String model;
+    @DecimalMin("0")
     @Schema(description = "Weight limit in grams")
     private Double weightLimit;
-    @Schema(description = "Battery capacity in percents, e.g. 56.5")
     @DecimalMin("0")
     @DecimalMax("100")
+    @Schema(description = "Battery capacity in percents, e.g. 56.5")
     private Double batteryCapacity;
 }
