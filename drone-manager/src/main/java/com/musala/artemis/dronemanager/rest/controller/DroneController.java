@@ -1,9 +1,8 @@
 package com.musala.artemis.dronemanager.rest.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.fge.jsonpatch.JsonPatch;
-import com.musala.artemis.dronemanager.exception.NonUniqueException;
-import com.musala.artemis.dronemanager.exception.PrimaryNotFoundException;
-import com.musala.artemis.dronemanager.exception.RelationNotFoundException;
+import com.github.fge.jsonpatch.JsonPatchException;
 import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.rest.annotation.CreatedApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.DeleteApiResponses;
@@ -46,8 +45,7 @@ public class DroneController {
             description = "Create drone")
     @CreatedApiResponses
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DroneResponse> createDrone(@RequestBody @Validated CreateDroneRequest createDroneRequest)
-            throws RelationNotFoundException, NonUniqueException {
+    public ResponseEntity<DroneResponse> createDrone(@RequestBody @Validated CreateDroneRequest createDroneRequest) {
         Drone drone = droneManagerService.addDrone(createDroneRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(new DroneResponse(drone));
     }
@@ -56,7 +54,7 @@ public class DroneController {
             description = "Get drone by id")
     @FindByIdApiResponses
     @GetMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DroneResponse> getDrone(@PathVariable Long droneId) throws PrimaryNotFoundException {
+    public ResponseEntity<DroneResponse> getDrone(@PathVariable Long droneId) {
         Drone drone = droneManagerService.findDrone(droneId);
         return ResponseEntity.ok(new DroneResponse(drone));
     }
@@ -65,8 +63,9 @@ public class DroneController {
             description = "Update drone parameters by id")
     @FindByIdApiResponses
     @PatchMapping(value = "/{droneId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DroneResponse> updateDrone(@RequestBody @Validated JsonPatch jsonPatch, @PathVariable Long droneId) throws PrimaryNotFoundException {
-        Drone drone = droneManagerService.findDrone(droneId);
+    public ResponseEntity<DroneResponse> updateDrone(@PathVariable Long droneId, @RequestBody @Validated JsonPatch jsonPatch)
+            throws JsonPatchException, JsonProcessingException {
+        Drone drone = droneManagerService.patchDrone(droneId, jsonPatch);
         return ResponseEntity.ok(new DroneResponse(drone));
     }
 
@@ -74,7 +73,7 @@ public class DroneController {
             description = "Delete drone by id")
     @DeleteApiResponses
     @DeleteMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> deleteDrone(@PathVariable Long droneId) throws PrimaryNotFoundException {
+    public ResponseEntity<Object> deleteDrone(@PathVariable Long droneId) {
         droneManagerService.deleteDrone(droneId);
         return ResponseEntity.noContent().build();
     }
