@@ -1,16 +1,16 @@
-package com.musala.artemis.dronemanager.service.patch;
+package com.musala.artemis.dronemanager.rest.model.patch;
 
 import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.model.DroneState;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 public class DronePatch {
     private String model;
     @DecimalMin("0")

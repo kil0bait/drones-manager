@@ -6,14 +6,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class DroneResponse {
-    @NotBlank
+    @NotNull
     @Schema(description = "Drone ID")
     private Long id;
     @NotBlank
@@ -32,9 +35,6 @@ public class DroneResponse {
     private Double batteryCapacity;
     @Schema(description = "Drone state")
     private DroneState state;
-
-    public DroneResponse() {
-    }
 
     public DroneResponse(Drone drone) {
         this.id = drone.getId();

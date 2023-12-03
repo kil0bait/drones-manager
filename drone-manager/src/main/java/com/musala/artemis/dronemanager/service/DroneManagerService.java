@@ -16,7 +16,7 @@ import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.model.DroneModel;
 import com.musala.artemis.dronemanager.model.DroneState;
 import com.musala.artemis.dronemanager.rest.model.CreateDroneRequest;
-import com.musala.artemis.dronemanager.service.patch.DronePatch;
+import com.musala.artemis.dronemanager.rest.model.patch.DronePatch;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

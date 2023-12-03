@@ -7,6 +7,7 @@ import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.rest.annotation.CreatedApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.DeleteApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.FindByIdApiResponses;
+import com.musala.artemis.dronemanager.rest.annotation.PatchApiResponses;
 import com.musala.artemis.dronemanager.rest.model.CreateDroneRequest;
 import com.musala.artemis.dronemanager.rest.model.DroneResponse;
 import com.musala.artemis.dronemanager.service.DroneManagerService;
@@ -61,7 +62,7 @@ public class DroneController {
 
     @Operation(summary = "Update drone",
             description = "Update drone parameters by id")
-    @FindByIdApiResponses
+    @PatchApiResponses
     @PatchMapping(value = "/{droneId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> updateDrone(@PathVariable Long droneId, @RequestBody @Validated JsonPatch jsonPatch)
             throws JsonPatchException, JsonProcessingException {
