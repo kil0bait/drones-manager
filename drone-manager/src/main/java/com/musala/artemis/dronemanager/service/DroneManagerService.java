@@ -88,7 +88,6 @@ public class DroneManagerService {
         orig.setModel(model);
         orig.setWeightLimit(patched.getWeightLimit());
         orig.setBatteryCapacity(patched.getBatteryCapacity());
-        orig.setState(patched.getState());
     }
 
     private static Double validateAndGetWeightLimit(@Nullable Double weightLimit, DroneModel model) {

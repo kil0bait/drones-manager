@@ -10,10 +10,10 @@
         <createTable tableName="drone"
                      remarks="Table with drone instances">
             <column name="id" type="int" autoIncrement="true" startWith="100">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="serial_number" type="varchar(100)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="drone_model_id" type="int">
                 <constraints nullable="false"/>
@@ -30,7 +30,7 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="default_weight_limit" type="float"/>
             <column name="deleted" type="boolean" defaultValueBoolean="false"/>
@@ -39,7 +39,7 @@
         <createTable tableName="medication"
                      remarks="Table with medication instances">
             <column name="id" type="int" autoIncrement="true" startWith="1000">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>

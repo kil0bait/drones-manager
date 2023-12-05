@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1002" author="batyrk">
+        <createTable tableName="shipment"
+                     remarks="Table with shipments">
+            <column name="id" type="int" autoIncrement="true" startWith="10000">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="addressee" type="varchar(255)"/>
+            <column name="start_date" type="datetime"/>
+            <column name="end_date" type="datetime"/>
+            <column name="drone_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shipment_state" type="varchar(255)"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+
+        <createTable tableName="shipment_medication"
+                     remarks="Table for shipment-medication association">
+            <column name="id" type="int" autoIncrement="true" startWith="1">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="shipment_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="medication_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="shipment" baseColumnNames="drone_id"
+                                 constraintName="drone_fk"
+                                 referencedTableName="drone" referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="shipment_medication" baseColumnNames="shipment_id"
+                                 constraintName="shipment_fk"
+                                 referencedTableName="shipment" referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="shipment_medication" baseColumnNames="medication_id"
+                                 constraintName="medication_fk"
+                                 referencedTableName="medication" referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

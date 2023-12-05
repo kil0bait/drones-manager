@@ -2,4 +2,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/1001-create-drone-and-medication-table.xml
   - include:
+      file: db/changelog/1002-create-shipment-table.xml
+  - include:
       file: db/changelog/1011-add-drone-model-rows.xml
