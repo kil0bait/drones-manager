@@ -10,8 +10,13 @@ import com.musala.artemis.dronemanager.rest.annotation.FindByIdApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.PatchApiResponses;
 import com.musala.artemis.dronemanager.rest.model.CreateDroneRequest;
 import com.musala.artemis.dronemanager.rest.model.DroneResponse;
+import com.musala.artemis.dronemanager.rest.model.PatchDocument;
 import com.musala.artemis.dronemanager.service.DroneManagerService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,12 +35,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/v1/drone")
+@Tag(name = "Drone CRUD")
 @RequiredArgsConstructor
 public class DroneController {
     private final DroneManagerService droneManagerService;
 
     @Operation(summary = "Get all drones",
-            description = "Get all drones")
+            description = "Get all drones. Standard CRUD Read-All operation")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DroneResponse>> getAllDrones() {
         List<DroneResponse> list = droneManagerService.findAllDrones().stream().map(DroneResponse::new).toList();
@@ -43,7 +49,7 @@ public class DroneController {
     }
 
     @Operation(summary = "Create drone",
-            description = "Create drone")
+            description = "Create drone. Standard CRUD Create operation")
     @CreatedApiResponses
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> createDrone(@RequestBody @Validated CreateDroneRequest createDroneRequest) {
@@ -52,7 +58,7 @@ public class DroneController {
     }
 
     @Operation(summary = "Get drone",
-            description = "Get drone by id")
+            description = "Get drone by id. Standard CRUD Read operation")
     @FindByIdApiResponses
     @GetMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> getDrone(@PathVariable Long droneId) {
@@ -61,7 +67,9 @@ public class DroneController {
     }
 
     @Operation(summary = "Update drone",
-            description = "Update drone parameters by id")
+            description = "Update drone parameters by id. Standard CRUD Update operation",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = PatchDocument.class)))))
     @PatchApiResponses
     @PatchMapping(value = "/{droneId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> updateDrone(@PathVariable Long droneId, @RequestBody @Validated JsonPatch jsonPatch)
@@ -71,7 +79,7 @@ public class DroneController {
     }
 
     @Operation(summary = "Delete drone",
-            description = "Delete drone by id")
+            description = "Delete drone by id. Standard CRUD Delete operation")
     @DeleteApiResponses
     @DeleteMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteDrone(@PathVariable Long droneId) {

@@ -9,9 +9,14 @@ import com.musala.artemis.dronemanager.rest.annotation.DeleteApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.FindByIdApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.PatchApiResponses;
 import com.musala.artemis.dronemanager.rest.model.CreateShipmentRequest;
+import com.musala.artemis.dronemanager.rest.model.PatchDocument;
 import com.musala.artemis.dronemanager.rest.model.ShipmentResponse;
 import com.musala.artemis.dronemanager.service.ShipmentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,12 +35,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rest/v1/shipment")
+@Tag(name = "Shipment CRUD")
 @RequiredArgsConstructor
 public class ShipmentController {
     private final ShipmentService shipmentService;
 
     @Operation(summary = "Get all shipments",
-            description = "Get all shipments")
+            description = "Get all shipments. Standard CRUD Read-All operation")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ShipmentResponse>> getAllShipments() {
         List<ShipmentResponse> list = shipmentService.findAllShipments().stream().map(ShipmentResponse::new).toList();
@@ -43,7 +49,7 @@ public class ShipmentController {
     }
 
     @Operation(summary = "Create shipment",
-            description = "Create shipment")
+            description = "Create shipment. Standard CRUD Create operation")
     @CreatedApiResponses
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> createShipment(@RequestBody @Validated CreateShipmentRequest createShipmentRequest) {
@@ -52,7 +58,7 @@ public class ShipmentController {
     }
 
     @Operation(summary = "Get shipment",
-            description = "Get shipment by id")
+            description = "Get shipment by id. Standard CRUD Read operation")
     @FindByIdApiResponses
     @GetMapping(value = "/{shipmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> getShipment(@PathVariable Long shipmentId) {
@@ -61,7 +67,9 @@ public class ShipmentController {
     }
 
     @Operation(summary = "Update shipment",
-            description = "Update shipment parameters by id")
+            description = "Update shipment parameters by id. Standard CRUD Update operation",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(array = @ArraySchema(schema = @Schema(implementation = PatchDocument.class)))))
     @PatchApiResponses
     @PatchMapping(value = "/{shipmentId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> updateShipment(@PathVariable Long shipmentId, @RequestBody @Validated JsonPatch jsonPatch)
@@ -71,7 +79,7 @@ public class ShipmentController {
     }
 
     @Operation(summary = "Delete shipment",
-            description = "Delete shipment by id")
+            description = "Delete shipment by id. Standard CRUD Delete operation")
     @DeleteApiResponses
     @DeleteMapping(value = "/{shipmentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteShipment(@PathVariable Long shipmentId) {
