@@ -33,7 +33,6 @@
             <column name="medication_id" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
         </createTable>
 
         <addForeignKeyConstraint baseTableName="shipment" baseColumnNames="drone_id"

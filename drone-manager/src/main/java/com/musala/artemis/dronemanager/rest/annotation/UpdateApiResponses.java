@@ -21,5 +21,5 @@ import java.lang.annotation.Target;
                 content = @Content(schema = @Schema(implementation = RestErrorResponse.class))),
         @ApiResponse(responseCode = "500", description = "Internal server error",
                 content = @Content(schema = @Schema(implementation = RestErrorResponse.class)))})
-public @interface PatchApiResponses {
+public @interface UpdateApiResponses {
 }

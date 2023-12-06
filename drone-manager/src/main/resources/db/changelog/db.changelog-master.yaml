@@ -4,4 +4,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/1002-create-shipment-table.xml
   - include:
-      file: db/changelog/1011-add-drone-model-rows.xml
+      file: db/changelog/1003-create-system-property-table.xml
+  - include:
+      file: db/changelog/1011-insert-system-property-rows.xml
+  - include:
+      file: db/changelog/1012-insert-drone-model-rows.xml
+  - include:
+      file: db/changelog/1013-insert-drone-and-medication-rows.xml

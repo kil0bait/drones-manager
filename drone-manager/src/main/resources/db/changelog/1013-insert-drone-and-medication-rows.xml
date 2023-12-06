@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1013" author="batyrk">
+        <insert tableName="drone">
+            <column name="id">10</column>
+            <column name="serial_number">pdsj6K54D9swvDmtgqsf</column>
+            <column name="drone_model_id">1</column>
+            <column name="weight_limit">50.0</column>
+            <column name="battery_capacity">100.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">11</column>
+            <column name="serial_number">5jdas6L2rgKTS98W2rXi</column>
+            <column name="drone_model_id">1</column>
+            <column name="weight_limit">50.0</column>
+            <column name="battery_capacity">100.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">12</column>
+            <column name="serial_number">kDXUSzpNa2biZj9TQVQr</column>
+            <column name="drone_model_id">1</column>
+            <column name="weight_limit">40.0</column>
+            <column name="battery_capacity">10.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">13</column>
+            <column name="serial_number">DufUNo7QHdDjJf4S6xJH</column>
+            <column name="drone_model_id">2</column>
+            <column name="weight_limit">100.0</column>
+            <column name="battery_capacity">80.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">14</column>
+            <column name="serial_number">PrSCnwqD9SVwTYeaZgAC</column>
+            <column name="drone_model_id">2</column>
+            <column name="weight_limit">90.0</column>
+            <column name="battery_capacity">10.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">15</column>
+            <column name="serial_number">ZR0GcD7Tc8zWhWquvYIh</column>
+            <column name="drone_model_id">3</column>
+            <column name="weight_limit">200.0</column>
+            <column name="battery_capacity">50.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">16</column>
+            <column name="serial_number">6ZnFxbimVKMVyq5Cd5zH</column>
+            <column name="drone_model_id">3</column>
+            <column name="weight_limit">300.0</column>
+            <column name="battery_capacity">100.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">17</column>
+            <column name="serial_number">caBVayEmMDCgmf3JI6gh</column>
+            <column name="drone_model_id">4</column>
+            <column name="weight_limit">400.0</column>
+            <column name="battery_capacity">100.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+        <insert tableName="drone">
+            <column name="id">18</column>
+            <column name="serial_number">TFCmCQoC8jUQSbH0uG0O</column>
+            <column name="drone_model_id">4</column>
+            <column name="weight_limit">450.0</column>
+            <column name="battery_capacity">70.0</column>
+            <column name="state">IDLE</column>
+        </insert>
+
+
+        <insert tableName="medication">
+            <column name="id">100</column>
+            <column name="name">Paracetamol</column>
+            <column name="weight">10.0</column>
+            <column name="code">O2WXDEX0Q6XYVAAHVDAC</column>
+            <column name="image_id">image</column>
+        </insert>
+        <insert tableName="medication">
+            <column name="id">101</column>
+            <column name="name">Dobutamine</column>
+            <column name="weight">20.0</column>
+            <column name="code">6W39ZIC_2WIX9YEX_RAG</column>
+            <column name="image_id">image</column>
+        </insert>
+        <insert tableName="medication">
+            <column name="id">102</column>
+            <column name="name">Voltaren_10</column>
+            <column name="weight">40.0</column>
+            <column name="code">5UBJQ50RS7_FLXO4DKVC</column>
+            <column name="image_id">image</column>
+        </insert>
+        <insert tableName="medication">
+            <column name="id">103</column>
+            <column name="name">Naprelan_20</column>
+            <column name="weight">80.0</column>
+            <column name="code">0SDYJ_9E70BGYBWXC65H</column>
+            <column name="image_id">image</column>
+        </insert>
+        <insert tableName="medication">
+            <column name="id">104</column>
+            <column name="name">Clonazepam_40</column>
+            <column name="weight">160.0</column>
+            <column name="code">85_63GL9MWX5PD_14YFU</column>
+            <column name="image_id">image</column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

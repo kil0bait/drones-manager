@@ -28,9 +28,9 @@ public class ShipmentResponse {
     private Date endDate;
     @NotNull
     @Schema(description = "Delivery drone id")
-    private Long droneId;
+    private Long drone;
     @Schema(description = "Shipment medications IDs list")
-    private List<Long> medicationIds;
+    private List<Long> medications;
     @Schema(description = "Shipment state")
     private ShipmentState shipmentState;
 
@@ -39,11 +39,11 @@ public class ShipmentResponse {
         this.addressee = shipment.getAddressee();
         this.startDate = shipment.getStartDate();
         this.endDate = shipment.getEndDate();
-        this.droneId = shipment.getDrone().getId();
+        this.drone = shipment.getDrone().getId();
         this.shipmentState = shipment.getShipmentState();
         if (shipment.getMedications() != null)
-            this.medicationIds = shipment.getMedications().stream().map(Medication::getId).toList();
+            this.medications = shipment.getMedications().stream().map(Medication::getId).toList();
         else
-            this.medicationIds = new ArrayList<>(0);
+            this.medications = new ArrayList<>(0);
     }
 }

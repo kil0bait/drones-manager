@@ -7,7 +7,7 @@ import com.musala.artemis.dronemanager.model.Medication;
 import com.musala.artemis.dronemanager.rest.annotation.CreatedApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.DeleteApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.FindByIdApiResponses;
-import com.musala.artemis.dronemanager.rest.annotation.PatchApiResponses;
+import com.musala.artemis.dronemanager.rest.annotation.UpdateApiResponses;
 import com.musala.artemis.dronemanager.rest.model.CreateMedicationRequest;
 import com.musala.artemis.dronemanager.rest.model.MedicationResponse;
 import com.musala.artemis.dronemanager.rest.model.PatchDocument;
@@ -70,7 +70,7 @@ public class MedicationController {
             description = "Update medication parameters by id. Standard CRUD Update operation",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = PatchDocument.class)))))
-    @PatchApiResponses
+    @UpdateApiResponses
     @PatchMapping(value = "/{medicationId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MedicationResponse> updateMedication(@PathVariable Long medicationId, @RequestBody @Validated JsonPatch jsonPatch)
             throws JsonPatchException, JsonProcessingException {
