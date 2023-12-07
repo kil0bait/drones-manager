@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 public class NonUniqueException extends ResponseStatusException {
-    private static final String NON_UNIQUE_DETAILED_MESSAGE_FORMAT = "%s with %s = %s already exists";
+    private static final String MESSAGE_FORMAT = "%s with %s = %s already exists";
 
     public <T> NonUniqueException(Class<T> aClass, String key, String value) {
-        super(HttpStatus.CONFLICT, NON_UNIQUE_DETAILED_MESSAGE_FORMAT.formatted(aClass.getSimpleName(), key, value));
+        super(HttpStatus.CONFLICT, MESSAGE_FORMAT.formatted(aClass.getSimpleName(), key, value));
     }
 }

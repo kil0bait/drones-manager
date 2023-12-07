@@ -1,4 +1,4 @@
-package com.musala.artemis.dronemanager.rest;
+package com.musala.artemis.dronemanager.config;
 
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;

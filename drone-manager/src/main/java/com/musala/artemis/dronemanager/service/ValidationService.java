@@ -1,20 +1,22 @@
 package com.musala.artemis.dronemanager.service;
 
 import com.musala.artemis.dronemanager.exception.business.BlankAddresseeException;
+import com.musala.artemis.dronemanager.exception.business.DroneOverloadException;
+import com.musala.artemis.dronemanager.exception.business.EmptyShipmentException;
+import com.musala.artemis.dronemanager.exception.business.FleetOverflowException;
 import com.musala.artemis.dronemanager.exception.business.LowBatteryLevelException;
 import com.musala.artemis.dronemanager.exception.business.NotApplicableForStateException;
 import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.model.DroneState;
+import com.musala.artemis.dronemanager.model.Medication;
 import com.musala.artemis.dronemanager.model.Shipment;
 import com.musala.artemis.dronemanager.model.ShipmentState;
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.stereotype.Service;
 
-@Service
 @RequiredArgsConstructor
-public class ShipmentValidation {
+public class ValidationService {
     public static final String UPDATE = "UPDATE";
     public static final String START_LOAD = "START LOADING";
     public static final String LOAD = "LOADING";
@@ -26,6 +28,12 @@ public class ShipmentValidation {
     public static final String CANCEL = "CANCEL";
 
     private final Double minBatteryLevelForLoading;
+    private final Long maxFleetSize;
+
+    public void validateAddToFleet(long currentFleetSize) {
+        if (currentFleetSize >= maxFleetSize)
+            throw new FleetOverflowException(maxFleetSize);
+    }
 
     public void validateUpdate(Shipment shipment) {
         if (shipment.getShipmentState().order > 300)
@@ -53,6 +61,15 @@ public class ShipmentValidation {
             throw new NotApplicableForStateException(Shipment.class, FINISH_LOAD, shipment.getShipmentState().toString());
         if (drone.getState() != DroneState.LOADING)
             throw new NotApplicableForStateException(Drone.class, FINISH_LOAD, drone.getState().toString());
+        if (shipment.getMedications().isEmpty())
+            throw new EmptyShipmentException();
+        Double totalWeight = getTotalWeight(shipment);
+        if (totalWeight > drone.getWeightLimit())
+            throw new DroneOverloadException(totalWeight, drone);
+    }
+
+    private Double getTotalWeight(Shipment shipment) {
+        return shipment.getMedications().stream().map(Medication::getWeight).reduce(0.0, Double::sum);
     }
 
     public void validateStartDelivery(Shipment shipment, Drone drone) {

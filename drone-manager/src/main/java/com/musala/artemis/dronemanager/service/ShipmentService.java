@@ -11,6 +11,7 @@ import com.musala.artemis.dronemanager.dao.ShipmentRepository;
 import com.musala.artemis.dronemanager.exception.PatchValidationException;
 import com.musala.artemis.dronemanager.exception.PrimaryNotFoundException;
 import com.musala.artemis.dronemanager.exception.RelationNotFoundException;
+import com.musala.artemis.dronemanager.exception.business.AbsentActiveShipmentException;
 import com.musala.artemis.dronemanager.exception.business.ExistingShipmentException;
 import com.musala.artemis.dronemanager.model.Drone;
 import com.musala.artemis.dronemanager.model.DroneState;
@@ -36,7 +37,7 @@ public class ShipmentService {
     private final ShipmentRepository shipmentRepository;
     private final DroneRepository droneRepository;
     private final MedicationRepository medicationRepository;
-    private final ShipmentValidation shipmentValidation;
+    private final ValidationService validationService;
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
@@ -90,7 +91,7 @@ public class ShipmentService {
 
     public Shipment findShipmentForDrone(Drone drone) {
         return shipmentRepository.findByDroneIdInActiveState(drone.getId())
-                .orElseThrow(() -> new PrimaryNotFoundException(Shipment.class, "droneId", String.valueOf(drone.getId())));
+                .orElseThrow(() -> new AbsentActiveShipmentException(drone));
     }
 
     public Shipment addShipmentForDrone(Drone drone, CreateDroneShipmentRequest createDroneShipmentRequest) {
@@ -107,7 +108,7 @@ public class ShipmentService {
 
     public Shipment patchShipmentForDrone(Drone drone, JsonPatch jsonPatch) throws JsonPatchException, JsonProcessingException {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateUpdate(shipment);
+        validationService.validateUpdate(shipment);
         DroneShipmentPatch currentShipment = new DroneShipmentPatch(shipment);
         JsonNode patched = jsonPatch.apply(objectMapper.convertValue(currentShipment, JsonNode.class));
         DroneShipmentPatch patchedShipment = objectMapper.treeToValue(patched, DroneShipmentPatch.class);
@@ -115,7 +116,7 @@ public class ShipmentService {
         if (errors.hasErrors())
             throw new PatchValidationException(errors);
         if (detectMedicationsChanges(currentShipment, patchedShipment))
-            shipmentValidation.validateLoading(shipment, drone);
+            validationService.validateLoading(shipment, drone);
         applyChanges(shipment, patchedShipment);
         return updateShipment(shipment);
     }
@@ -137,7 +138,7 @@ public class ShipmentService {
 
     public Shipment startLoading(Drone drone) {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateStartLoading(shipment, drone);
+        validationService.validateStartLoading(shipment, drone);
         drone.setState(DroneState.LOADING);
         droneRepository.save(drone);
         shipment.setShipmentState(ShipmentState.LOADING);
@@ -146,7 +147,7 @@ public class ShipmentService {
 
     public Shipment finishLoading(Drone drone) {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateFinishLoading(shipment, drone);
+        validationService.validateFinishLoading(shipment, drone);
         drone.setState(DroneState.LOADED);
         droneRepository.save(drone);
         shipment.setShipmentState(ShipmentState.LOADED);
@@ -155,7 +156,7 @@ public class ShipmentService {
 
     public Shipment startDelivery(Drone drone) {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateStartDelivery(shipment, drone);
+        validationService.validateStartDelivery(shipment, drone);
         drone.setState(DroneState.DELIVERING);
         droneRepository.save(drone);
         shipment.setShipmentState(ShipmentState.DELIVERING);
@@ -164,7 +165,7 @@ public class ShipmentService {
 
     public Shipment finishDelivery(Drone drone) {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateFinishDelivery(shipment, drone);
+        validationService.validateFinishDelivery(shipment, drone);
         drone.setState(DroneState.DELIVERED);
         droneRepository.save(drone);
         shipment.setShipmentState(ShipmentState.DELIVERED);
@@ -174,7 +175,7 @@ public class ShipmentService {
 
     public Shipment cancelShipment(Drone drone) {
         Shipment shipment = findShipmentForDrone(drone);
-        shipmentValidation.validateCancel(shipment, drone);
+        validationService.validateCancel(shipment, drone);
         if (drone.getState().order >= 400)
             drone.setState(DroneState.RETURNING);
         else
@@ -191,14 +192,14 @@ public class ShipmentService {
 
     public Drone returnDrone(Drone drone) {
         Shipment shipment = shipmentRepository.findByDroneIdInActiveState(drone.getId()).orElse(null);
-        shipmentValidation.validateDroneReturn(shipment, drone);
+        validationService.validateDroneReturn(shipment, drone);
         drone.setState(DroneState.RETURNING);
         return droneRepository.save(drone);
     }
 
     public Drone finishReturnDrone(Drone drone) {
         Shipment shipment = shipmentRepository.findByDroneIdInActiveState(drone.getId()).orElse(null);
-        shipmentValidation.validateDroneFinishReturn(shipment, drone);
+        validationService.validateDroneFinishReturn(shipment, drone);
         if (shipment != null && shipment.getShipmentState() == ShipmentState.CANCELLED_RETURNING) {
             shipment.setShipmentState(ShipmentState.CANCELLED);
             shipment.setEndDate(new Date());

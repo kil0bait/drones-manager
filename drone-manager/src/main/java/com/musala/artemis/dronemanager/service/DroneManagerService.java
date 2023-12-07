@@ -33,6 +33,7 @@ public class DroneManagerService {
 
     private final DroneRepository droneRepository;
     private final DroneModelRepository droneModelRepository;
+    private final ValidationService validationService;
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
@@ -41,6 +42,7 @@ public class DroneManagerService {
     }
 
     public Drone addDrone(CreateDroneRequest createDroneRequest) {
+        validationService.validateAddToFleet(droneRepository.count());
         DroneModel model = droneModelRepository.findByName(createDroneRequest.getModel())
                 .orElseThrow(() -> new RelationNotFoundException(DroneModel.class, "name", createDroneRequest.getModel()));
         Optional<Drone> existing = droneRepository.findBySerialNumber(createDroneRequest.getSerialNumber());
