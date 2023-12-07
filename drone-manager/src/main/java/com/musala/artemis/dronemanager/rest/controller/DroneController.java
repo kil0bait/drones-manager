@@ -11,7 +11,7 @@ import com.musala.artemis.dronemanager.rest.annotation.UpdateApiResponses;
 import com.musala.artemis.dronemanager.rest.model.CreateDroneRequest;
 import com.musala.artemis.dronemanager.rest.model.DroneResponse;
 import com.musala.artemis.dronemanager.rest.model.PatchDocument;
-import com.musala.artemis.dronemanager.service.DroneManagerService;
+import com.musala.artemis.dronemanager.service.DroneService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,13 +38,13 @@ import java.util.List;
 @Tag(name = "Drone CRUD")
 @RequiredArgsConstructor
 public class DroneController {
-    private final DroneManagerService droneManagerService;
+    private final DroneService droneService;
 
     @Operation(summary = "Get all drones",
             description = "Get all drones. Standard CRUD Read-All operation")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DroneResponse>> getAllDrones() {
-        List<DroneResponse> list = droneManagerService.findAllDrones().stream().map(DroneResponse::new).toList();
+        List<DroneResponse> list = droneService.findAllDrones().stream().map(DroneResponse::new).toList();
         return ResponseEntity.ok(list);
     }
 
@@ -53,7 +53,7 @@ public class DroneController {
     @CreatedApiResponses
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> createDrone(@RequestBody @Validated CreateDroneRequest createDroneRequest) {
-        Drone drone = droneManagerService.addDrone(createDroneRequest);
+        Drone drone = droneService.addDrone(createDroneRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(new DroneResponse(drone));
     }
 
@@ -62,7 +62,7 @@ public class DroneController {
     @FindByIdApiResponses
     @GetMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> getDrone(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         return ResponseEntity.ok(new DroneResponse(drone));
     }
 
@@ -74,7 +74,7 @@ public class DroneController {
     @PatchMapping(value = "/{droneId}", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> updateDrone(@PathVariable Long droneId, @RequestBody @Validated JsonPatch jsonPatch)
             throws JsonPatchException, JsonProcessingException {
-        Drone drone = droneManagerService.patchDrone(droneId, jsonPatch);
+        Drone drone = droneService.patchDrone(droneId, jsonPatch);
         return ResponseEntity.ok(new DroneResponse(drone));
     }
 
@@ -83,7 +83,7 @@ public class DroneController {
     @DeleteApiResponses
     @DeleteMapping(value = "/{droneId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteDrone(@PathVariable Long droneId) {
-        droneManagerService.deleteDrone(droneId);
+        droneService.deleteDrone(droneId);
         return ResponseEntity.noContent().build();
     }
 

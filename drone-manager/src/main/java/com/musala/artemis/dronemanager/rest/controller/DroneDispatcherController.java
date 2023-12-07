@@ -12,7 +12,7 @@ import com.musala.artemis.dronemanager.rest.model.CreateDroneShipmentRequest;
 import com.musala.artemis.dronemanager.rest.model.DroneResponse;
 import com.musala.artemis.dronemanager.rest.model.PatchDocument;
 import com.musala.artemis.dronemanager.rest.model.ShipmentResponse;
-import com.musala.artemis.dronemanager.service.DroneManagerService;
+import com.musala.artemis.dronemanager.service.DroneService;
 import com.musala.artemis.dronemanager.service.ShipmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Drone dispatcher")
 @RequiredArgsConstructor
 public class DroneDispatcherController {
-    private final DroneManagerService droneManagerService;
+    private final DroneService droneService;
     private final ShipmentService shipmentService;
 
     @Operation(summary = "Get active shipment for a drone",
@@ -44,7 +44,7 @@ public class DroneDispatcherController {
     @FindByIdApiResponses
     @GetMapping(value = "/{droneId}/shipment", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> getDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.findShipmentForDrone(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -55,7 +55,7 @@ public class DroneDispatcherController {
     @PostMapping(value = "/{droneId}/shipment", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> createDroneShipment(@PathVariable Long droneId,
                                                                 @RequestBody @Validated CreateDroneShipmentRequest createDroneShipmentRequest) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.addShipmentForDrone(drone, createDroneShipmentRequest);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -74,7 +74,7 @@ public class DroneDispatcherController {
     @PatchMapping(value = "/{droneId}/shipment", consumes = "application/json-patch+json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> updateShipment(@PathVariable Long droneId, @RequestBody @Validated JsonPatch jsonPatch)
             throws JsonPatchException, JsonProcessingException {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.patchShipmentForDrone(drone, jsonPatch);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -85,7 +85,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/shipment/load", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> startLoadDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.startLoading(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -95,7 +95,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/shipment/load/finish", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> finishLoadDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.finishLoading(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -105,7 +105,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/shipment/deliver", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> startDeliverDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.startDelivery(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -115,7 +115,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/shipment/deliver/finish", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> finishDeliverDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.finishDelivery(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -125,7 +125,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/shipment/cancel", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ShipmentResponse> cancelDroneShipment(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         Shipment shipment = shipmentService.cancelShipment(drone);
         return ResponseEntity.ok(new ShipmentResponse(shipment));
     }
@@ -135,7 +135,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/return", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> returnDrone(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         drone = shipmentService.returnDrone(drone);
         return ResponseEntity.ok(new DroneResponse(drone));
     }
@@ -145,7 +145,7 @@ public class DroneDispatcherController {
     @UpdateApiResponses
     @PostMapping(value = "/{droneId}/return/finish", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<DroneResponse> finishReturnDrone(@PathVariable Long droneId) {
-        Drone drone = droneManagerService.findDrone(droneId);
+        Drone drone = droneService.findDrone(droneId);
         drone = shipmentService.finishReturnDrone(drone);
         return ResponseEntity.ok(new DroneResponse(drone));
     }

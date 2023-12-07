@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DroneManagerService {
+public class DroneService {
     private static final Double INITIAL_BATTERY_CAPACITY = 100.0;
 
     private final DroneRepository droneRepository;
