@@ -15,3 +15,4 @@ server:
 management.endpoints.web.base-path: /rest/v1/
 springdoc.api-docs.path: /rest/v1/api-docs
 springdoc.swagger-ui.path: /swagger-ui.html
+logging.level.com.musala.artemis.dronemanager: INFO

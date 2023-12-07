@@ -6,6 +6,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/1003-create-system-property-table.xml
   - include:
+      file: db/changelog/1004-create-audit-drone-table.xml
+  - include:
       file: db/changelog/1011-insert-system-property-rows.xml
   - include:
       file: db/changelog/1012-insert-drone-model-rows.xml

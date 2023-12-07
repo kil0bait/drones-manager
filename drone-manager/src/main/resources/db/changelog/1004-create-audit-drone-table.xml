@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1004" author="batyrk">
+        <createTable tableName="audit_drone"
+                     remarks="Table with drones battery capacity audit logs">
+            <column name="id" type="int" autoIncrement="true" startWith="10000">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="drone_id" type="int"/>
+            <column name="battery_capacity" type="float"/>
+            <column name="timestamp" type="datetime"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="audit_drone" baseColumnNames="drone_id"
+                                 constraintName="audit_drone_drone_fk"
+                                 referencedTableName="drone" referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
