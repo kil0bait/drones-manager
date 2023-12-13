@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.fge.jsonpatch.JsonPatch;
 import com.github.fge.jsonpatch.JsonPatchException;
 import com.musala.artemis.dronemanager.model.Drone;
+import com.musala.artemis.dronemanager.model.DroneState;
 import com.musala.artemis.dronemanager.rest.annotation.CreatedApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.DeleteApiResponses;
 import com.musala.artemis.dronemanager.rest.annotation.FindByIdApiResponses;
@@ -17,6 +18,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,8 +46,8 @@ public class DroneController {
     @Operation(summary = "Get all drones",
             description = "Get all drones. Standard CRUD Read-All operation")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<DroneResponse>> getAllDrones() {
-        List<DroneResponse> list = droneService.findAllDrones().stream().map(DroneResponse::new).toList();
+    public ResponseEntity<List<DroneResponse>> getAllDrones(@RequestParam @Nullable DroneState droneState) {
+        List<DroneResponse> list = droneService.findAllDrones(droneState).stream().map(DroneResponse::new).toList();
         return ResponseEntity.ok(list);
     }
 

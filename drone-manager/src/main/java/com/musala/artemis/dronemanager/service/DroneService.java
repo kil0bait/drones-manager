@@ -37,7 +37,9 @@ public class DroneService {
     private final ObjectMapper objectMapper;
     private final Validator validator;
 
-    public List<Drone> findAllDrones() {
+    public List<Drone> findAllDrones(@Nullable DroneState droneState) {
+        if (droneState != null)
+            return droneRepository.findByState(droneState);
         return droneRepository.findAll();
     }
 

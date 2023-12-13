@@ -15,7 +15,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{drone-manager-url}}/rest/v1/drone",
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone?droneState=DELIVERED",
 							"protocol": "http",
 							"host": [
 								"{{drone-manager-url}}"
@@ -24,6 +24,38 @@
 								"rest",
 								"v1",
 								"drone"
+							],
+							"query": [
+								{
+									"key": "droneState",
+									"value": "DELIVERED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get available drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone?droneState=IDLE",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone"
+							],
+							"query": [
+								{
+									"key": "droneState",
+									"value": "IDLE"
+								}
 							]
 						}
 					},
