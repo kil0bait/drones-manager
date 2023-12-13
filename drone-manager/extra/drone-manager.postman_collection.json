@@ -1,0 +1,841 @@
+{
+	"info": {
+		"_postman_id": "ae0e2aa2-82e1-4dc0-a9fc-b4b5d1842b86",
+		"name": "Drone Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10209046"
+	},
+	"item": [
+		{
+			"name": "Drone CRUD",
+			"item": [
+				{
+					"name": "get all drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add drone",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"serialNumber\": \"TFCmCQoC8jUQSbH0uG0O1\",\r\n    \"model\": \"Heavyweight\",\r\n    \"weightLimit\": 500.0,\r\n    \"batteryCapacity\": 100.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update drone",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/model\",\r\n        \"value\": \"Lightweight\"\r\n    },\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/weightLimit\",\r\n        \"value\": \"5.0\"\r\n    },\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/batteryCapacity\",\r\n        \"value\": \"51.0\"\r\n    },\r\n    {\r\n        \"op\": \"add\",\r\n        \"path\": \"/state\",\r\n        \"value\": \"LOADED\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete drone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medication CRUD",
+			"item": [
+				{
+					"name": "get all medications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/medication",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"medication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add medication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Paracetamol-12_1\",\r\n    \"weight\":\"12\",\r\n    \"code\":\"L12_2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/medication",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"medication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/medication/100",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"medication",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medication",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/code\",\r\n        \"value\": \"L13_ASD\"\r\n    },\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/weight\",\r\n        \"value\": \"11.4\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/medication/100",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"medication",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/medication/100",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"medication",
+								"100"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shipment CRUD",
+			"item": [
+				{
+					"name": "get all shipments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add shipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"droneId\": 100,\r\n    \"addressee\": \"john doe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get shipment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/shipment/10001",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"shipment",
+								"10001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update shipment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"op\": \"replace\",\r\n        \"path\": \"/addressee\",\r\n        \"value\": \"john doe\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/shipment/10001",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"shipment",
+								"10001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete shipment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/shipment/10001",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"shipment",
+								"10001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Drone dispatcher",
+			"item": [
+				{
+					"name": "get drone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add drone shipment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressee\": \"john doe\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone shipment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update drone shipment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"op\": \"add\",\r\n        \"path\": \"/addressee\",\r\n        \"value\": \"John Doe\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "load drone start",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment/load",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment",
+								"load"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update drone shipment add medications",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"op\": \"add\",\r\n        \"path\": \"/medications\",\r\n        \"value\": [\"101\"]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "load drone finish",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment/load/finish",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment",
+								"load",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "start delivery drone",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment/deliver",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment",
+								"deliver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finish delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment/deliver/finish",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment",
+								"deliver",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "return drone",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/return",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"return"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "return drone finish",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/return/finish",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"return",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel shipment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json-patch+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/drone/10/shipment/cancel",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"drone",
+								"10",
+								"shipment",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "meta",
+			"item": [
+				{
+					"name": "serviceHealthCheck",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/health",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api docs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{drone-manager-url}}/rest/v1/api-docs",
+							"protocol": "http",
+							"host": [
+								"{{drone-manager-url}}"
+							],
+							"path": [
+								"rest",
+								"v1",
+								"api-docs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "drone-manager-url",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
