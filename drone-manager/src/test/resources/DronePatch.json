@@ -1,0 +1,17 @@
+[
+  {
+    "op": "replace",
+    "path": "/model",
+    "value": "Lightweight"
+  },
+  {
+    "op": "replace",
+    "path": "/weightLimit",
+    "value": "5.0"
+  },
+  {
+    "op": "replace",
+    "path": "/batteryCapacity",
+    "value": "51.0"
+  }
+]
