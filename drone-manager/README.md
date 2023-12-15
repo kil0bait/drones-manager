@@ -50,6 +50,7 @@ The Swagger UI with OpenApi documentation is available for started application a
 3. Configurable error/info messages (i18n)
 4. Search filters for shipments (shipment history)
 5. Pagination/sorting for all the `get all` operations
+6. Add tests for the rest Services and Controllers
 
 ## Statecharts
 <img src="extra/svg/drone-statechart-diagram.drawio.svg" alt="Drone Statechart diagram"/>
